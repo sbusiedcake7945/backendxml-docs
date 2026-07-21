@@ -10,6 +10,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
         rel="stylesheet">
+    <link rel="icon"
+href="logo.png"
+type="image/png">
     <style>
         :root {
             --bg-color: #f8fafc;
@@ -56,8 +59,6 @@
             display: flex;
             overflow-x: hidden;
         }
-
-        /* Glassmorphism Background Elements */
         .blob {
             position: fixed;
             width: 600px;
@@ -78,8 +79,6 @@
             bottom: -200px;
             left: -100px;
         }
-
-        /* Sidebar */
         aside {
             width: var(--nav-width);
             height: 100vh;
@@ -147,8 +146,6 @@
             font-weight: 600;
             box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
         }
-
-        /* Main Content */
         main {
             margin-left: var(--nav-width);
             width: calc(100% - var(--nav-width));
@@ -181,8 +178,6 @@
             font-size: 0.85rem;
             box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.2);
         }
-
-        /* Hero */
         .hero {
             text-align: left;
             margin-bottom: 10rem;
@@ -257,8 +252,6 @@
             margin-bottom: 10rem;
             scroll-margin-top: 6rem;
         }
-
-        /* Glass Cards */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(15px);
@@ -401,8 +394,6 @@
             opacity: 0.5;
             font-weight: 500;
         }
-
-        /* Syntax Highlighting */
         .tag {
             color: #f472b6;
         }
@@ -513,8 +504,11 @@
                 <a href="https://github.com/sbusiedcake7945/backend-cli/"
                     style="background: var(--secondary-bg); color: var(--text-color); padding: 1.2rem 2.8rem; border-radius: 22px; text-decoration: none; font-weight: 800; border: 1px solid var(--border-color); box-shadow: var(--shadow);">github
                     repo</a>
-                <a href="https://github.com/sbusiedcake7945/backend-cli-releases/"
-                    style="background: var(--secondary-bg); color: var(--text-color); padding: 1.2rem 2.8rem; border-radius: 22px; text-decoration: none; font-weight: 800; border: 1px solid var(--border-color); box-shadow: var(--shadow);">releases
+                <a href="https://github.com/sbusiedcake7945/backend-cli-releases/raw/refs/heads/main/backend-cli.exe"
+                    style="background: var(--secondary-bg); color: var(--text-color); padding: 1.2rem 2.8rem; border-radius: 22px; text-decoration: none; font-weight: 800; border: 1px solid var(--border-color); box-shadow: var(--shadow);">windows
+                    install</a>
+                <a href="https://github.com/sbusiedcake7945/backend-cli-releases/raw/refs/heads/main/backend-cli"
+                    style="background: var(--secondary-bg); color: var(--text-color); padding: 1.2rem 2.8rem; border-radius: 22px; text-decoration: none; font-weight: 800; border: 1px solid var(--border-color); box-shadow: var(--shadow);">linux/unix
                     install</a>
             </div>
             </div>
@@ -523,7 +517,7 @@
         <div class="step-box">
             <div class="step-number-bg">02</div>
             <h3 style="margin-top: 0;">Shell Integration</h3>
-            <p>Expose the binary to your PATH. On Linux/Unix: <code>cp ./backend-cli-linux-amd64 /usr/bin/backend-cli</code> for instant
+            <p>Expose the binary to your PATH. On Linux/Unix: <code>cp backend-cli /usr/bin/</code> for instant
                 access.</p>
         </div>
         <div class="step-box">
@@ -601,8 +595,18 @@
                     <tr>
                         <td class="tag-ref">&lt;database&gt;</td>
                         <td>Global</td>
-                        <td>Unified data gateway. Supports <strong>SQLite</strong> and <strong>JSON</strong> storage.
+                        <td>Unified data gateway. Supports <strong>SQLite</strong>, <strong>JSON</strong>, or custom extension types.
                         </td>
+                    </tr>
+                    <tr>
+                        <td class="tag-ref">&lt;db.get&gt;</td>
+                        <td>Handler</td>
+                        <td>Fetches data from the connected database directly. E.g. <code>&lt;db.get q="SELECT..." /&gt;</code>.</td>
+                    </tr>
+                    <tr>
+                        <td class="tag-ref">&lt;query&gt;</td>
+                        <td>Handler</td>
+                        <td>Executes database commands. Supports <code>&lt;query q="..." type="..."&gt;</code> notation.</td>
                     </tr>
                     <tr>
                         <td class="tag-ref">&lt;if&gt;</td>
@@ -628,37 +632,61 @@
                         <td>Asynchronous file execution in an isolated goroutine.</td>
                     </tr>
                     <tr>
-                        <td class="tag-ref">&lt;input&gt;</td>
-                        <td>Handler</td>
-                        <td>Waits the request until the console accepts it</td>
-                    </tr>
-                    <tr>
                         <td class="tag-ref">&lt;call&gt; / Custom</td>
                         <td>Handler</td>
                         <td>Executes named functions. Supports isolated parameter passing.</td>
                     </tr>
                 </tbody>
             </table>
-        </section>
-
-        <section id="functions">
-            <h2>Polyglot Systems</h2>
+        </section>        <section id="functions">
+            <h2>Polyglot Systems & Multi-Language Execution</h2>
             <div class="glass-card">
-                <p>BackendXML breaks language silos. Inject native performance where it matters most.</p>
+                <p>BackendXML breaks language silos, allowing you to inject native performance where it matters most. It supports native executions of <strong>Go</strong>, <strong>Python</strong>, <strong>Node.js (Javascript)</strong>, and <strong>C/C++</strong> natively and concurrently.</p>
+                
+                <div class="highlight-box">
+                    <strong>Parameter Isolation & Variable Resolution:</strong> When calling a polyglot function (e.g. <code>&lt;my_func name="John" /&gt;</code>), variables are isolated and mapped. Variables in both inline code block and external scripts (loaded via <code>src="..."</code>) are dynamically resolved using the standard <code>{{name}}</code> placeholder!
+                </div>
+
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
                     <div>
                         <h4 style="color: #6366f1;">Go Native Block</h4>
-                        <pre><code><span class="tag">&lt;function</span> <span class="attr">name=</span><span class="val">"gofunc"</span><span class="attr">type=</span><span class="val">"go"</span><span class="tag">&gt;</span>
-  <span class="comment">// Pure Go Performance</span>
-  fmt.Println("Concurrency Active")
+                        <pre><code><span class="tag">&lt;function</span> <span class="attr">type=</span><span class="val">"go"</span><span class="tag">&gt;</span>
+  package main
+  import "fmt"
+  func main() {
+      fmt.Println("Concurrency Active")
+  }
 <span class="tag">&lt;/function&gt;</span></code></pre>
                     </div>
                     <div>
-                        <h4 style="color: #a855f7;">JS Logic Block (Otto)</h4>
-                        <pre><code><span class="tag">&lt;function</span> <span class="attr">name=</span><span class="val">"jsfunc"</span><span class="attr">type=</span><span class="val">"js"</span><span class="tag">&gt;</span>
-  <span class="comment">// Native Go-JS Engine</span>
-  console.log("Otto Engine Active");
-  print("Hello from JS");
+                        <h4 style="color: #3b82f6;">Python Code Block & External Scripts</h4>
+                        <p style="font-size: 0.95rem; opacity: 0.85;">Runs using <code>python3</code> (falls back to <code>python</code>). Inline constraints are ignored due to raw block parsing!</p>
+                        <pre><code><span class="tag">&lt;function</span> <span class="attr">type=</span><span class="val">"python"</span> <span class="attr">src=</span><span class="val">"./scripts/hello.py"</span> <span class="tag">/&gt;</span>
+<span class="comment">&lt;!-- Or Inline: --&gt;</span>
+<span class="tag">&lt;function</span> <span class="attr">type=</span><span class="val">"python"</span><span class="tag">&gt;</span>
+  print("Hello from Python!")
+  print(1 &lt; 2) <span class="comment"># Raw block ignores XML validations!</span>
+<span class="tag">&lt;/function&gt;</span></code></pre>
+                    </div>
+                    <div>
+                        <h4 style="color: #a855f7;">C/C++ Dynamic Compilation</h4>
+                        <p style="font-size: 0.95rem; opacity: 0.85;">Compiles inline code or external files via <code>gcc</code>/<code>g++</code> to a safe temporary binary, runs it, and discards it automatically.</p>
+                        <pre><code><span class="tag">&lt;function</span> <span class="attr">type=</span><span class="val">"cpp"</span> <span class="attr">src=</span><span class="val">"engine.cpp"</span> <span class="tag">/&gt;</span>
+<span class="comment">&lt;!-- Or Inline: --&gt;</span>
+<span class="tag">&lt;function</span> <span class="attr">type=</span><span class="val">"c"</span><span class="tag">&gt;</span>
+  #include &lt;stdio.h&gt;
+  int main() {
+      printf("Compiled and Executed dynamically!");
+      return 0;
+  }
+<span class="tag">&lt;/function&gt;</span></code></pre>
+                    </div>
+                    <div>
+                        <h4 style="color: #10b981;">Node.js / JS Engine</h4>
+                        <p style="font-size: 0.95rem; opacity: 0.85;">Runs directly in <code>node</code>. Supports full npm library scopes available on the machine.</p>
+                        <pre><code><span class="tag">&lt;function</span> <span class="attr">type=</span><span class="val">"nodejs"</span><span class="tag">&gt;</span>
+  const os = require('os');
+  console.log("Memory Available:", os.freemem());
 <span class="tag">&lt;/function&gt;</span></code></pre>
                     </div>
                 </div>
@@ -684,21 +712,33 @@
         </section>
 
         <section id="database">
-            <h2>Unified Data Layer</h2>
-            <p>One tag to rule them all. Switch between SQL and JSON with a single attribute.</p>
+            <h2>Unified Data Layer & Dynamic Extensions</h2>
+            <p>One tag to rule them all. Switch between SQL, JSON, or registered custom extensions dynamically using a unified API.</p>
+            
+            <div class="highlight-box">
+                <strong>Dynamic DB Driver Registry:</strong> The engine provides Go interfaces to register custom database drivers. Our default <code>custom</code> driver operates as a file-based log and text database connection out-of-the-box!
+            </div>
+
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                 <div>
-                    <h4 style="color: #10b981;">SQLite (Default)</h4>
-                    <pre><code><span class="tag">&lt;database</span> <span class="attr">connection=</span><span class="val">"./data.db"</span> <span class="tag">/&gt;</span></code></pre>
+                    <h4 style="color: #10b981;">Database Connections</h4>
+                    <p style="font-size: 0.95rem; opacity: 0.85;">Specify connection details and driver types dynamically.</p>
+                    <pre><code><span class="tag">&lt;database</span> <span class="attr">connection=</span><span class="val">"file.db"</span> <span class="attr">type=</span><span class="val">"sqlite"</span> <span class="tag">/&gt;</span>
+<span class="comment">&lt;!-- Custom DB extension: --&gt;</span>
+<span class="tag">&lt;database</span> <span class="attr">connection=</span><span class="val">"plugin.log"</span> <span class="attr">type=</span><span class="val">"custom"</span> <span class="tag">/&gt;</span></code></pre>
                 </div>
                 <div>
-                    <h4 style="color: #3b82f6;">JSON Storage</h4>
-                    <pre><code><span class="tag">&lt;database</span> <span class="attr">type=</span><span class="val">"json"</span> <span class="attr">connection=</span><span class="val">"./data.json"</span> <span class="attr">var=</span><span class="val">"db"</span> <span class="tag">/&gt;</span></code></pre>
+                    <h4 style="color: #3b82f6;">Executing & Fetching Directly</h4>
+                    <p style="font-size: 0.95rem; opacity: 0.85;">Use <code>&lt;db.get&gt;</code> to render query outputs directly inside views or store results in local variables.</p>
+                    <pre><code><span class="comment">&lt;!-- Fetch and print directly: --&gt;</span>
+<span class="tag">&lt;p&gt;</span>Users list: <span class="tag">&lt;db.get</span> <span class="attr">q=</span><span class="val">"SELECT name FROM users"</span> <span class="tag">/&gt;&lt;/p&gt;</span>
+
+<span class="comment">&lt;!-- Execute commands: --&gt;</span>
+<span class="tag">&lt;query</span> <span class="attr">q=</span><span class="val">"DELETE FROM logs"</span> <span class="attr">type=</span><span class="val">"sqlite"</span> <span class="tag">/&gt;</span></code></pre>
                 </div>
             </div>
             <div class="highlight-box">
-                <strong>Pro Tip:</strong> All database paths support <code>./</code> relative syntax for maximum
-                portability.
+                <strong>Pro Tip:</strong> All database paths support <code>./</code> relative syntax for maximum portability.
             </div>
         </section>
 
@@ -731,8 +771,8 @@
         </section>
 
         <section id="modularity">
-            <h2>Modularity: Scale With Elegance</h2>
-            <p>Split your application into manageable components without losing performance.</p>
+            <h2>Modularity & Block Variables</h2>
+            <p>Split your application into manageable components and leverage multi-line variables natively.</p>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                 <div>
                     <h4 style="color: #6366f1;">&lt;include file="..." /&gt;</h4>
@@ -741,15 +781,20 @@
                         included file.</p>
                 </div>
                 <div>
-                    <h4 style="color: #a855f7;">&lt;open file="..." /&gt;</h4>
-                    <p style="font-size: 1rem;">Launches a file in a completely isolated background thread. Ideal for
-                        audit logging, notification dispatching, or cleanup tasks.</p>
+                    <h4 style="color: #a855f7;">&lt;var name="..."&gt; Block Definitions</h4>
+                    <p style="font-size: 1rem;">Variables can now be defined as block structures containing multi-line content, HTML tags, or nested placeholders. Perfect for template layout wrapping!</p>
+                    <pre><code><span class="tag">&lt;var</span> <span class="attr">name=</span><span class="val">"dashboard_widget"</span><span class="tag">&gt;</span>
+  &lt;div class="card"&gt;
+      &lt;h3&gt;Title: {{widget_name}}&lt;/h3&gt;
+      &lt;p&gt;Active connections resolved.&lt;/p&gt;
+  &lt;/div&gt;
+<span class="tag">&lt;/var&gt;</span></code></pre>
                 </div>
             </div>
         </section>
 
         <section id="dsl-mastery">
-            <h2>Custom Tags</h2>
+            <h2>DSL & Custom Tags</h2>
             <p>Elevate your code by using named functions as native XML elements.</p>
             <pre><code><span class="comment">&lt;!-- Definition --&gt;</span>
 <span class="tag">&lt;function</span> <span class="attr">name=</span><span class="val">"alert"</span> <span class="attr">type=</span><span class="val">"html"</span><span class="tag">&gt;</span>
